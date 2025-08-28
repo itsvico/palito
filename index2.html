@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>feliz aniversário palito :)</title>
+  <link rel="stylesheet" href="styles2.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div>
+    <div class="container">
+      <video class="bg-video" autoplay muted loop playsinline>
+        <source src="midias/fundo2.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos em HTML5.
+      </video>
+
+<audio id="bg-music" src="midias/musica-fundo.mp3" autoplay loop></audio>
+
+      <!-- Mensagem de feliz aniversário -->
+      <h1>🎉 feliz aniversário, palito ;)</h1>
+      <p>alguns momentos do aniversariante fodão de hoje 🥳</p> <br>
+      
+      <section class="carousel-section">
+        <div class="carousel">
+          <button class="arrow left" onclick="scrollCarousel('media-carousel', -1)">&#10094;</button>
+          <div class="media-gallery" id="media-carousel">
+            <img src="midias/foto1.jpg" alt="Foto 1" class="expandable">
+            <img src="midias/foto2.jpg" alt="Foto 2" class="expandable">
+            <img src="midias/foto3.jpg" alt="Foto 3" class="expandable">
+            <img src="midias/foto4.jpg" alt="Foto 4" class="expandable">
+            <video src="midias/video1.mp4" controls></video>
+            <img src="midias/foto5.jpg" alt="Foto 5" class="expandable">
+            <img src="midias/foto6.jpg" alt="Foto 6" class="expandable">
+            <img src="midias/foto7.jpg" alt="Foto 7" class="expandable">
+            <img src="midias/foto8.jpg" alt="Foto 8" class="expandable">
+          </div>
+          <button class="arrow right" onclick="scrollCarousel('media-carousel', 1)">&#10095;</button>
+        </div>
+
+        <div class="lightbox" id="lightbox">
+          <span class="close" onclick="closeLightbox()">&times;</span>
+          <img class="lightbox-content" id="lightbox-img">
+        </div>
+      </section>
+
+      <p>alguns clipes... 🎮 (faltaram MUITOS mas n tive mto tempo)</p>
+      <section class="carousel-section">
+        <div class="carousel">
+          <button class="arrow left" onclick="scrollCarousel('video-carousel', -1)">&#10094;</button>
+          <div class="video-gallery" id="video-carousel">
+            <video src="midias/clip1.mp4" controls></video>
+            <video src="midias/clip2.mp4" controls></video>
+            <video src="midias/clip3.mp4" controls></video>
+            <video src="midias/clip4.mp4" controls></video>
+            <video src="midias/clip5.mp4" controls></video>
+            <video src="midias/clip6.mp4" controls></video>
+            <video src="midias/clip7.mp4" controls></video>
+          </div>
+          <button class="arrow right" onclick="scrollCarousel('video-carousel', 1)">&#10095;</button>
+        </div>
+      </section>
+
+      <section class="mural">
+        <h2>recadinhos pra tu 🫵🏻</h2>
+        <div class="postits">
+          <img src="midias/postit2.png" alt="Post-it 1" class="postit expandable-postit">
+          <img src="midias/postit1.png" alt="Post-it 2" class="postit expandable-postit">
+          <img src="midias/postit3.png" alt="Post-it 3" class="postit expandable-postit">
+          <img src="midias/postit4.png" alt="Post-it 4" class="postit expandable-postit">
+          <img src="midias/postit5.png" alt="Post-it 5" class="postit expandable-postit">
+        </div>
+      </section>
+
+      <div class="lightbox" id="lightbox-postit">
+        <span class="close" onclick="closePostit()">&times;</span>
+        <img class="lightbox-content" id="lightbox-postit-img">
+      </div>
+
+      <div class="gift-container">
+        <button id="reveal-btn">clique pra pegar seu presente!</button>
+        <div id="gift-code" class="hidden">PG23-TGTH-F5H4</div>
+        <button id="copy-btn" class="hidden">copiar código</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const revealBtn = document.getElementById('reveal-btn');
+    const giftCode = document.getElementById('gift-code');
+    const copyBtn = document.getElementById('copy-btn');
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxPostit = document.getElementById("lightbox-postit");
+    const lightboxPostitImg = document.getElementById("lightbox-postit-img");
+   const bgMusic = document.getElementById('bg-music');
+
+document.body.addEventListener('click', function startMusic(e) {
+  // só dispara se não for um clique em elementos interativos
+  if (!e.target.closest('video, .expandable, .expandable-postit, button')) {
+    bgMusic.play();
+    document.body.removeEventListener('click', startMusic);
+  }
+});
+
+// Pausar música quando vídeos tocarem, retomar quando pararem
+const allVideos = document.querySelectorAll('video');
+allVideos.forEach(video => {
+  video.addEventListener('play', () => bgMusic.pause());
+  video.addEventListener('pause', () => bgMusic.play());
+  video.addEventListener('ended', () => bgMusic.play());
+});
+
+    document.querySelectorAll(".expandable-postit").forEach(postit => {
+      postit.addEventListener("click", () => {
+        lightboxPostit.style.display = "flex";
+        lightboxPostitImg.src = postit.src;
+      });
+    });
+
+    function closePostit() {
+      lightboxPostit.style.display = "none";
+    }
+
+    document.querySelectorAll(".expandable").forEach(img => {
+      img.addEventListener("click", () => {
+        lightbox.style.display = "flex";
+        lightboxImg.src = img.src;
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.style.display = "none";
+    }
+
+    // Revelar código, mostrar botão de copiar e esconder botão de pegar
+    revealBtn.addEventListener('click', () => {
+      giftCode.classList.remove('hidden');
+      copyBtn.classList.remove('hidden');
+      revealBtn.style.display = 'none';
+    });
+
+    // Copiar o código para a área de transferência
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(giftCode.textContent)
+        .then(() => alert('código copiado! sei q não é mto mas é de coração, então... aproveita :)'))
+        .catch(() => alert('não foi possível copiar. deu alguma merda ae rapaiz'));
+    });
+
+    // Função scrollCarousel atualizada
+    function scrollCarousel(carouselId, direction) {
+      const carousel = document.getElementById(carouselId);
+      const itemWidth = carousel.querySelector("img, video").offsetWidth + 20; // largura + gap
+      carousel.scrollBy({ left: direction * itemWidth, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
